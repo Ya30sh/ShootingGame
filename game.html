@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Game</title>
+	<style type="text/css">
+		#myTarget{
+			position: absolute;
+		}
+		body{
+			cursor: crosshair;
+		}
+		.bg{
+			height: 95vh;
+			width: 98vw;
+			background-repeat: no-repeat;
+		}
+	</style>
+</head>
+<body>
+	<div class="bg">
+		<h1><div id="target">🎯🎯🎯🎯🎯</div>
+		<div style="text-align: center;" id="sb">ScoreBoard - 0</div></h1>
+		<div><img src="" width="100px" id="myTarget" onclick="scoreboard()"></div>
+	</div>
+	<script type="text/javascript">
+		var mybg = [
+				{bg : "bg1.jpg"},
+				{bg : "bg2.jpg"},
+				{bg : "bg3.jpg"},
+				{bg : "bg4.jpg"},
+				{bg : "bg5.jpg"}
+				];
+		a = document.getElementById('myTarget');
+		sb = document.getElementById('sb');
+		target = document.getElementById('target');
+		audio = new Audio('sound.mp3');
+		count = 0;
+		interval = 950;
+		gameEnd = 0;
+
+		function myBackground(){
+		document.body.style.backgroundImage = "url("+mybg[Math.ceil(Math.random()*4)].bg+")"
+		}
+
+		document.body.style.backgroundImage = "url('bg1.jpg')";
+		document.body.style.backgroundRepeat = "repeat-y";
+		document.body.style.backgroundPosition = "center center"
+		document.body.style.backgroundSize = "cover"
+
+		function changePosition(){
+			myTarget.src = "target.png";
+			x = Math.ceil(Math.random()*1000);
+			y = Math.ceil(Math.random()*400);
+			a.style.left = x+"px";
+			a.style.bottom = y+"px";
+			gameEnd++;
+			console.log(count);
+			console.log(gameEnd);
+			level();
+		}
+
+		function scoreboard(){
+			mySound();
+			count++;
+			sb.innerHTML = "ScoreBoard - "+count;
+			myTarget.src = "pop.png";
+		}
+
+		function mySound(){
+			audio.play();
+		}
+
+		function repeater() {
+			changePosition();
+			if(interval != speed){
+				interval = speed;
+				clearInterval(aimer);
+				aimer = setInterval(repeater,interval);
+			}
+		}
+
+		function level(){
+			if(count>30){
+				speed = 500;
+			}
+			else if(count>25){
+				speed = 650;
+			}
+			else if(count>20){
+				speed = 750;
+			}
+			else if(count > 15){
+				speed = 850;
+			}
+			else{
+				speed = 950;
+			}
+
+			if((gameEnd - count)==1){
+				target.innerHTML = "🎯🎯🎯🎯";
+			}
+			else if((gameEnd - count)==2){
+				target.innerHTML = "🎯🎯🎯";
+			}
+			else if((gameEnd - count)==3){
+				target.innerHTML = "🎯🎯";
+			}
+			else if((gameEnd - count)==4){
+				target.innerHTML = "🎯";
+			}
+			else if((gameEnd - count)==5){
+				target.innerHTML = "";
+				alert("Gameover");
+				open("index.html");
+			}
+		}
+
+		aimer =  setInterval(repeater,1000);
+		setInterval(myBackground,2000);
+	</script>
+</body>
+</html>
