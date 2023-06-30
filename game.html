@@ -40,6 +40,8 @@
 		interval = 950;
 		gameEnd = 0;
 
+		alert("start new game");
+
 		function myBackground(){
 		document.body.style.backgroundImage = "url("+mybg[Math.ceil(Math.random()*4)].bg+")"
 		}
@@ -116,12 +118,14 @@
 				clearInterval(pic);
 				myTarget.remove();
 				alert("Gameover");
+				// document.body.innerHTML =  ("<button> Restart game </button");
+
 				open("game.html");
 			}
 		}
 
 		aimer =  setInterval(repeater,1000);
-		setInterval(myBackground,2000);
+		pic = setInterval(myBackground,2000);
 	</script>
 </body>
 </html>
