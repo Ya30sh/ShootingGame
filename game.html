@@ -112,8 +112,11 @@
 			}
 			else if((gameEnd - count)==5){
 				target.innerHTML = "";
+				clearInterval(aimer);
+				clearInterval(pic);
+				myTarget.remove();
 				alert("Gameover");
-				open("index.html");
+				open("game.html");
 			}
 		}
 
