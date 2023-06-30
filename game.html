@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Game</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 	<style type="text/css">
 		#myTarget{
 			position: absolute;
@@ -18,20 +19,26 @@
 		}
 	</style>
 </head>
-<body>
-	<div class="bg">
-		<h1><div id="target">🎯🎯🎯🎯🎯</div>
-		<div style="text-align: center;" id="sb">ScoreBoard - 0</div></h1>
-		<div><img src="" width="100px" id="myTarget" onclick="scoreboard()"></div>
+<body class="img-fluid max-width: 100% height: auto">
+	<div>
+		<div class="bg">
+			<h1 class="text-center"><div id="target"></div></h1>
+			<div class="text-center" id="sb"></div>
+			<div class="text-center"><img src="" width="100px" id="myTarget" onclick="scoreboard()"></div>
+		</div>
 	</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 	<script type="text/javascript">
 		var mybg = [
-				{bg : "bg1.jpg"},
-				{bg : "bg2.jpg"},
-				{bg : "bg3.jpg"},
-				{bg : "bg4.jpg"},
-				{bg : "bg5.jpg"}
-				];
+			{bg: "bg1.jpg"},
+			{bg: "bg2.jpg"},
+			{bg: "bg3.jpg"},
+			{bg: "bg4.jpg"},
+			{bg: "bg5.jpg"}
+		];
 		a = document.getElementById('myTarget');
 		sb = document.getElementById('sb');
 		target = document.getElementById('target');
@@ -39,11 +46,11 @@
 		count = 0;
 		interval = 950;
 		gameEnd = 0;
+		target.innerHTML = "🎯🎯🎯🎯🎯";
+		sb.innerHTML = "ScoreBoard - 0";
 
-		alert("start new game");
-
-		function myBackground(){
-		document.body.style.backgroundImage = "url("+mybg[Math.ceil(Math.random()*4)].bg+")"
+		function myBackground() {
+			document.body.style.backgroundImage = "url(" + mybg[Math.ceil(Math.random() * 4)].bg + ")"
 		}
 
 		document.body.style.backgroundImage = "url('bg1.jpg')";
@@ -51,81 +58,82 @@
 		document.body.style.backgroundPosition = "center center"
 		document.body.style.backgroundSize = "cover"
 
-		function changePosition(){
+		function changePosition() {
 			myTarget.src = "target.png";
-			x = Math.ceil(Math.random()*1000);
-			y = Math.ceil(Math.random()*400);
-			a.style.left = x+"px";
-			a.style.bottom = y+"px";
+			x = Math.ceil(Math.random() * 70);
+			y = Math.ceil(Math.random() * 70);
+			a.style.left =   x + "vw";
+			a.style.bottom = y + "vh";
 			gameEnd++;
-			console.log(count);
-			console.log(gameEnd);
 			level();
 		}
 
-		function scoreboard(){
+		function scoreboard() {
 			mySound();
 			count++;
-			sb.innerHTML = "ScoreBoard - "+count;
+			sb.innerHTML = "ScoreBoard - " + count;
 			myTarget.src = "pop.png";
 		}
 
-		function mySound(){
+		function mySound() {
 			audio.play();
 		}
 
 		function repeater() {
 			changePosition();
-			if(interval != speed){
+			if (interval != speed) {
 				interval = speed;
 				clearInterval(aimer);
-				aimer = setInterval(repeater,interval);
+				aimer = setInterval(repeater, interval);
 			}
 		}
 
-		function level(){
-			if(count>30){
+		function level() {
+			if (count > 30) {
 				speed = 500;
-			}
-			else if(count>25){
+			} else if (count > 25) {
 				speed = 650;
-			}
-			else if(count>20){
+			} else if (count > 20) {
 				speed = 750;
-			}
-			else if(count > 15){
-				speed = 850;
-			}
-			else{
-				speed = 950;
+				} else if (count > 15) {
+					speed = 850;
+				} else {
+					speed = 950;
+				}
+
+				if((gameEnd - count)==1){
+					target.innerHTML = "🎯🎯🎯🎯";
+				}
+				else if((gameEnd - count)==2){
+					target.innerHTML = "🎯🎯🎯";
+				}
+				else if((gameEnd - count)==3){
+					target.innerHTML = "🎯🎯";
+				}
+				else if((gameEnd - count)==4){
+					target.innerHTML = "🎯";
+				}
+				else if((gameEnd - count)==5){
+					target.innerHTML = "";
+					clearInterval(aimer);
+					clearInterval(pic);
+					myTarget.remove();
+					
+					Swal.fire({
+					  title: 'Game Over',
+					  text: "Start a new game ",
+					  icon: 'warning',
+					  showCancelButton: true,
+					  confirmButtonColor: '#3085d6',
+					  cancelButtonColor: '#d33',
+					  confirmButtonText: '<a href="index.html" class="text-white" style="text-decoration-line: none;">Yes<a/>'
+					})
+				}
 			}
 
-			if((gameEnd - count)==1){
-				target.innerHTML = "🎯🎯🎯🎯";
-			}
-			else if((gameEnd - count)==2){
-				target.innerHTML = "🎯🎯🎯";
-			}
-			else if((gameEnd - count)==3){
-				target.innerHTML = "🎯🎯";
-			}
-			else if((gameEnd - count)==4){
-				target.innerHTML = "🎯";
-			}
-			else if((gameEnd - count)==5){
-				target.innerHTML = "";
-				clearInterval(aimer);
-				clearInterval(pic);
-				myTarget.remove();
-				alert("Gameover");
-				// document.body.innerHTML =  ("<button> Restart game </button");
+			aimer = setInterval(repeater, 1000);
+			pic = setInterval(myBackground, 2000);
 
-				open("game.html");
-			}
-		}
-
-		aimer =  setInterval(repeater,1000);
-		pic = setInterval(myBackground,2000);
-	</script>
-</body>
-</html>
+		</script>
+	</body>
+	</html>
