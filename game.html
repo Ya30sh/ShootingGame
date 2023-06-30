@@ -17,14 +17,17 @@
 			width: 98vw;
 			background-repeat: no-repeat;
 		}
+		.shadow{
+			filter: drop-shadow(25px 25px 10px black);
+		}
 	</style>
 </head>
 <body class="img-fluid max-width: 100% height: auto">
 	<div>
 		<div class="bg">
 			<h1 class="text-center"><div id="target"></div></h1>
-			<div class="text-center" id="sb"></div>
-			<div class="text-center"><img src="" width="100px" id="myTarget" onclick="scoreboard()"></div>
+			<h1><div class="text-center" id="sb" style="text-shadow: 3px 1px black;"></div></h1>
+			<div class="text-center"><img src="" width="100px" id="myTarget" onclick="scoreboard()" class="shadow"></div>
 		</div>
 	</div>
 
@@ -101,26 +104,26 @@
 					speed = 950;
 				}
 
-				if((gameEnd - count)==1){
+				if((gameEnd - count)==2){
 					target.innerHTML = "🎯🎯🎯🎯";
 				}
-				else if((gameEnd - count)==2){
+				else if((gameEnd - count)==3){
 					target.innerHTML = "🎯🎯🎯";
 				}
-				else if((gameEnd - count)==3){
+				else if((gameEnd - count)==4){
 					target.innerHTML = "🎯🎯";
 				}
-				else if((gameEnd - count)==4){
+				else if((gameEnd - count)==5){
 					target.innerHTML = "🎯";
 				}
-				else if((gameEnd - count)==5){
+				else if((gameEnd - count)==6){
 					target.innerHTML = "";
 					clearInterval(aimer);
 					clearInterval(pic);
 					myTarget.remove();
 					
 					Swal.fire({
-					  title: 'Game Over',
+					  title: '<h2 class = "text-danger">Game Over</h2></br><h3 class="text-info">Your Score is '+count+"<h3",
 					  text: "Start a new game ",
 					  icon: 'warning',
 					  showCancelButton: true,
