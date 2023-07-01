@@ -71,11 +71,12 @@
 			level();
 		}
 
-		function scoreboard() {
+		fun = function scoreboard() {
 			mySound();
 			count++;
 			sb.innerHTML = "ScoreBoard - " + count;
 			myTarget.src = "pop.png";
+			a.onclick="null";
 		}
 
 		function mySound() {
@@ -83,6 +84,7 @@
 		}
 
 		function repeater() {
+			a.onclick = fun;
 			changePosition();
 			if (interval != speed) {
 				interval = speed;
@@ -133,7 +135,7 @@
 					})
 				}
 			}
-
+			
 			aimer = setInterval(repeater, 1000);
 			pic = setInterval(myBackground, 2000);
 
